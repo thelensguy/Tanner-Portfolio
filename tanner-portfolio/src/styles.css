@@ -1,0 +1,71 @@
+/* You can add global styles to this file, and also import other style files */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+  height: 100vh;
+  background-color: #1d3557;
+}
+
+#logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: fill 0.5s ease forwards 3.5s;
+}
+
+#logo path:nth-child(1) {
+  stroke-dasharray: 336.67199;
+  stroke-dashoffset: 336.67199;
+  stroke-linecap: square;
+  animation: line-anim 2s ease forwards;
+}
+#logo path:nth-child(2) {
+  stroke-dasharray: 490.29;
+  stroke-dashoffset: 490.29;
+  stroke-linecap: square;
+  animation: line-anim 2s ease forwards 0.3s;
+}
+#logo path:nth-child(3) {
+  stroke-dasharray: 604.4;
+  stroke-dashoffset: 604.4;
+  stroke-linecap: square;
+  animation: line-anim 2s ease forwards 0.6s;
+}
+#logo path:nth-child(4) {
+  stroke-dasharray: 604.4;
+  stroke-dashoffset: 604.4;
+  stroke-linecap: square;
+  animation: line-anim 2s ease forwards 0.9s;
+}
+#logo path:nth-child(5) {
+  stroke-dasharray: 463.9;
+  stroke-dashoffset: 463.9;
+  stroke-linecap: square;
+  animation: line-anim 2s ease forwards 1.2s;
+}
+#logo path:nth-child(6) {
+  stroke-dasharray: 549;
+  stroke-dashoffset: 549;
+  stroke-linecap: square;
+  animation: line-anim 2s ease forwards 1.5s;
+}
+
+@keyframes line-anim {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes fill {
+  from {
+    fill: transparent;
+  }
+  to {
+    fill: white;
+  }
+}
