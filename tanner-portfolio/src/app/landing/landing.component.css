@@ -1,3 +1,51 @@
-container {
+.container {
   display: grid;
+  min-height: 90vh;
+  grid-template-columns: 10% repeat(3, minmax(5rem, 1fr)) 10%;
+  grid-template-rows: 1fr 1fr 1fr;
+  align-items: center;
+}
+
+h1 {
+  font-family: "Montserrat", sans-serif;
+  grid-column: 3/4;
+  grid-row: 1/2;
+  font-size: calc(9px + 2vw);
+  justify-self: center;
+  white-space: nowrap;
+  text-align: center;
+  align-self: flex-end;
+  overflow-x: auto;
+  color: white;
+  animation: fadeIn 2s ease-in;
+}
+
+.svgContainer {
+  grid-row: 2/3;
+  grid-column: 3/4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box {
+  grid-row: 3/4;
+  grid-column: 3/4;
+  align-self: flex-start;
+  text-align: center;
+  justify-self: center;
+  position: relative;
+}
+.iAm {
+  display: flex;
+  position: absolute;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100%;
+  }
 }
