@@ -1,16 +1,61 @@
-# React + Vite
+# thelensguy · Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio for Tanner Nguyen Vu — software engineer based in Southern California.
 
-Currently, two official plugins are available:
+![Hero — light mode](screenshots/readme/hero.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+![Hero — dark mode](screenshots/readme/hero-dark.png)
 
-## React Compiler
+## Sections
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Selected Work
+![Selected work](screenshots/readme/work.png)
 
-## Expanding the ESLint configuration
+### In Focus
+![In Focus — bio](screenshots/readme/infocus.png)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+![In Focus — experience](screenshots/readme/infocus-resume.png)
+
+### Contact
+![Contact](screenshots/readme/contact.png)
+
+---
+
+## Stack
+
+| Layer | Choice |
+|---|---|
+| Framework | React 19 + Vite 8 |
+| Styling | Vanilla CSS (custom properties, no framework) |
+| Animation | IntersectionObserver scroll-reveal, CSS transitions |
+| Typography | Playfair Display · DM Sans · JetBrains Mono |
+| Project art | Hand-crafted inline SVG scenes |
+
+## Design tokens
+
+```
+--cream      #f5f0e8   light background
+--ink        #0f0e0c   text / dark fills
+--amber      oklch     accent (hue-adjustable at runtime)
+--espresso   #1a1410   dark mode background
+--warm-gray  #8a8070   secondary text
+```
+
+## Dev
+
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # production build → dist/
+npm run preview  # preview production build
+```
+
+## Screenshots
+
+Screenshots are generated with the Playwright CLI:
+
+```bash
+node scripts/screenshot.mjs
+```
+
+Outputs to `screenshots/readme/`.
