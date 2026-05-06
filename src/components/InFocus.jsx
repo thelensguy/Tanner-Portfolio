@@ -1,4 +1,5 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useReveal } from './Work.jsx';
 import headshot from '../assets/headshot.jpg';
 
@@ -138,6 +139,118 @@ const ExposureDial = ({ values, activeIndex, dialValue, dialDesc }) => {
   );
 };
 
+// ── Basketball easter egg ─────────────────────────────────────────────────────
+
+const BballSVG = () => (
+  <svg width="24" height="24" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="11" fill="#E8642A" stroke="rgba(15,14,12,0.35)" strokeWidth="0.8"/>
+    <path d="M12 1 C7.5 6 7.5 18 12 23" fill="none" stroke="rgba(15,14,12,0.45)" strokeWidth="0.9"/>
+    <path d="M12 1 C16.5 6 16.5 18 12 23" fill="none" stroke="rgba(15,14,12,0.45)" strokeWidth="0.9"/>
+    <path d="M1 12 C6 8.5 18 8.5 23 12" fill="none" stroke="rgba(15,14,12,0.45)" strokeWidth="0.9"/>
+  </svg>
+);
+
+const HoopSVG = ({ jiggle }) => (
+  <svg width="54" height="58" viewBox="0 0 54 58">
+    {/* Backboard */}
+    <rect x="43" y="0" width="11" height="38" rx="1" fill="rgba(245,240,232,0.95)" stroke="rgba(15,14,12,0.85)" strokeWidth="1.2"/>
+    <rect x="45" y="8" width="7" height="10" rx="0.5" fill="none" stroke="#e8c46a" strokeWidth="1"/>
+    {/* Bracket arm */}
+    <line x1="43" y1="24" x2="36" y2="24" stroke="rgba(15,14,12,0.85)" strokeWidth="1.5"/>
+    {/* Rim */}
+    <rect x="3" y="21" width="35" height="5" rx="2" fill="none" stroke="rgba(15,14,12,0.85)" strokeWidth="2"/>
+    {/* Net — jiggle targets this group */}
+    <g
+      className={jiggle ? 'bball-net-jiggle' : ''}
+      style={{ transformOrigin: '20px 26px' }}
+    >
+      <line x1="6"  y1="26" x2="8"  y2="45" stroke="rgba(15,14,12,0.5)" strokeWidth="0.9"/>
+      <line x1="12" y1="26" x2="13" y2="45" stroke="rgba(15,14,12,0.5)" strokeWidth="0.9"/>
+      <line x1="18" y1="26" x2="18" y2="45" stroke="rgba(15,14,12,0.5)" strokeWidth="0.9"/>
+      <line x1="24" y1="26" x2="23" y2="45" stroke="rgba(15,14,12,0.5)" strokeWidth="0.9"/>
+      <line x1="30" y1="26" x2="28" y2="45" stroke="rgba(15,14,12,0.5)" strokeWidth="0.9"/>
+      <path d="M8 45 C10 48 11 48 13 45"  fill="none" stroke="rgba(15,14,12,0.5)" strokeWidth="0.9"/>
+      <path d="M13 45 C15 48 16 48 18 45" fill="none" stroke="rgba(15,14,12,0.5)" strokeWidth="0.9"/>
+      <path d="M18 45 C20 48 21 48 23 45" fill="none" stroke="rgba(15,14,12,0.5)" strokeWidth="0.9"/>
+      <path d="M23 45 C25 48 27 48 28 45" fill="none" stroke="rgba(15,14,12,0.5)" strokeWidth="0.9"/>
+    </g>
+  </svg>
+);
+
+const BballShot = ({ wordRef, onDone }) => {
+  const ballRef   = useRef(null);
+  const [jiggle,  setJiggle]  = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
+
+  // Rim center within the HoopSVG: x=20.5, y=23.5
+  const hoopLeft = window.innerWidth  - 74;
+  const hoopTop  = Math.min(window.innerHeight * 0.28, window.innerHeight - 80);
+  const ballEndX = hoopLeft + 20 - 12;  // rim center minus ball radius
+  const ballEndY = hoopTop  + 23 - 12;
+
+  const wordRect  = wordRef.current.getBoundingClientRect();
+  const ballStartX = wordRect.left + wordRect.width  / 2 - 12;
+  const ballStartY = wordRect.top  + wordRect.height / 2 - 12;
+
+  useEffect(() => {
+    const ball = ballRef.current;
+    if (!ball) return;
+
+    const dx = ballEndX - ballStartX;
+    const dy = ballEndY - ballStartY;
+    // Parabola peaking at t=0.38 (slightly before midpoint, like a real free-throw)
+    // Solving: a*(0.38)^2 + b*0.38 = -peakLift, a + b = dy
+    const peakLift = Math.min(175, window.innerHeight * 0.22);
+    const tp = 0.38;
+    const a  = (peakLift + tp * dy) / (tp - tp * tp);  // parabola peak at t=tp above start
+    const b  = dy - a;
+
+    const steps = 50;
+    const kf = Array.from({ length: steps + 1 }, (_, i) => {
+      const t = i / steps;
+      return {
+        transform: `translate(${dx * t}px, ${a * t * t + b * t}px) rotate(${t * 390}deg)`,
+      };
+    });
+
+    const anim = ball.animate(kf, { duration: 720, easing: 'linear', fill: 'forwards' });
+
+    anim.onfinish = () => {
+      setJiggle(true);                              // net reacts
+      setTimeout(() => setFadeOut(true), 180);      // start fade
+      setTimeout(onDone, 520);                      // total ≈ 1240ms
+    };
+
+    return () => anim.cancel();
+  }, []);
+
+  return createPortal(
+    <div style={{
+      position: 'fixed', inset: 0, zIndex: 9999,
+      pointerEvents: 'none',
+      opacity: fadeOut ? 0 : 1,
+      transition: fadeOut ? 'opacity 0.34s ease-in' : 'none',
+    }}>
+      {/* Ball */}
+      <div ref={ballRef} style={{
+        position: 'absolute',
+        left: ballStartX, top: ballStartY,
+        transformOrigin: '12px 12px',
+        willChange: 'transform',
+      }}>
+        <BballSVG />
+      </div>
+      {/* Hoop */}
+      <div style={{ position: 'absolute', left: hoopLeft, top: hoopTop }}>
+        <HoopSVG jiggle={jiggle} />
+      </div>
+    </div>,
+    document.body
+  );
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+
 const ROLES = [
   {
     co: 'Level Up', role: 'Technical Program Manager', date: 'May 2025 — Present',
@@ -173,6 +286,8 @@ const InFocus = () => {
   const [bodyRef, bodyIn] = useReveal();
   const [skillsRef, skillsIn] = useReveal();
   const [resumeRef, resumeIn] = useReveal({ rootMargin: '0px 0px -5% 0px' });
+  const [shooting, setShooting] = useState(false);
+  const wordRef = useRef(null);
 
   return (
     <section id="focus" data-screen-label="03 In Focus">
@@ -201,7 +316,11 @@ const InFocus = () => {
           </p>
           <div className="focus-divider" />
           <div className="strip">
-            making coffee i'm proud of<span className="dot"></span>basketball<span className="dot"></span>thelensguy
+            making coffee i'm proud of<span className="dot"></span><span
+              ref={wordRef}
+              className="bball-word"
+              onClick={() => { if (!shooting) setShooting(true); }}
+            >basketball</span><span className="dot"></span>thelensguy
           </div>
           <div ref={skillsRef} className={`reveal ${skillsIn ? 'in' : ''}`} style={{ marginTop: 20 }}>
             <span className="label">stack</span>
@@ -236,6 +355,7 @@ const InFocus = () => {
           </div>
         ))}
       </div>
+      {shooting && <BballShot wordRef={wordRef} onDone={() => setShooting(false)} />}
     </section>
   );
 };

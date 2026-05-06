@@ -568,6 +568,37 @@ body.dark .portrait { background: var(--espresso-2); }
   vertical-align: middle; margin: 0 12px 3px;
 }
 
+/* Basketball easter egg — subtle hover on "basketball" word */
+.bball-word {
+  cursor: pointer;
+  position: relative;
+  transition: color 0.22s ease;
+}
+.bball-word:hover { color: var(--amber); }
+.bball-word::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0; right: 0;
+  height: 1px;
+  background: var(--amber);
+  opacity: 0;
+  transform: scaleX(0.3);
+  transform-origin: left center;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+.bball-word:hover::after { opacity: 0.55; transform: scaleX(1); }
+
+/* Net jiggle when ball swishes through */
+@keyframes bball-net-jiggle {
+  0%   { transform: none; }
+  18%  { transform: skewX(-9deg) translateY(4px); }
+  38%  { transform: skewX(5deg)  translateY(-2px); }
+  58%  { transform: skewX(-3deg) translateY(2px); }
+  76%  { transform: skewX(1deg)  translateY(-1px); }
+  100% { transform: none; }
+}
+.bball-net-jiggle { animation: bball-net-jiggle 0.48s ease-out forwards; }
+
 /* skills / tech stack */
 .focus-text .label {
   display: inline-block;
