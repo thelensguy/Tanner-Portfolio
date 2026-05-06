@@ -288,6 +288,7 @@ const Camera = () => {
     <>
       <canvas
         ref={canvasRef}
+        className="camera-canvas"
         style={{ width: 560, height: 420, cursor: 'crosshair', display: 'block' }}
         onMouseMove={onMouseMove}
         onMouseEnter={onMouseEnter}

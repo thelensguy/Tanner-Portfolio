@@ -73,7 +73,7 @@ const Hero = ({ kineticStrength = 1 }) => {
         </div>
       </div>
 
-      <div style={{ justifySelf: 'center' }}>
+      <div className="hero-camera" style={{ justifySelf: 'center' }}>
         <Camera />
       </div>
     </section>

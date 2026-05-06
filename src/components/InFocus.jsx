@@ -319,6 +319,7 @@ const InFocus = () => {
             making coffee i'm proud of<span className="dot"></span><span
               ref={wordRef}
               className="bball-word"
+              data-cursor="ring"
               onClick={() => { if (!shooting) setShooting(true); }}
             >basketball</span><span className="dot"></span>thelensguy
           </div>
