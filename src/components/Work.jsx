@@ -195,7 +195,7 @@ const Work = () => {
             <div className="card-meta">
               <div className="card-row">
                 <h3>Trava</h3>
-                <span className="card-num">01 / 03</span>
+                <span className="card-num">01 / 02</span>
               </div>
               <div className="stack">
                 <span>Swift</span><span>SwiftUI</span><span>MapKit</span><span>CoreLocation</span><span>SwiftData</span>
@@ -219,7 +219,7 @@ const Work = () => {
             <div className="card-meta">
               <div className="card-row">
                 <h3>Folio</h3>
-                <span className="card-num">02 / 03</span>
+                <span className="card-num">02 / 02</span>
               </div>
               <div className="stack">
                 <span>Next.js 14</span><span>SQLite</span><span>Drizzle</span><span>Recharts</span><span>Zustand</span><span>shadcn/ui</span>
