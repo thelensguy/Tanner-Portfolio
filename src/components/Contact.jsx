@@ -95,16 +95,19 @@ const Contact = () => {
 
         <div ref={btnsRef} className={`contact-buttons reveal ${btnsIn ? 'in' : ''}`}>
           <a className="btn btn-ghost" href="https://github.com/thelensguy" target="_blank" rel="noreferrer" onClick={spark}>
-            github.com/thelensguy
+            github.com/<span className="thelens-handle" data-tooltip="Tanner Nguyenvu">thelensguy</span>
             <svg className="arrow" viewBox="0 0 12 12" fill="none">
               <path d="M3 9L9 3M9 3H4M9 3v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </a>
           <a className="btn btn-ghost" href="https://www.linkedin.com/in/thelensguy" target="_blank" rel="noreferrer" onClick={spark}>
-            linkedin.com/in/thelensguy
+            linkedin.com/in/<span className="thelens-handle" data-tooltip="Tanner Nguyenvu">thelensguy</span>
             <svg className="arrow" viewBox="0 0 12 12" fill="none">
               <path d="M3 9L9 3M9 3H4M9 3v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
+          </a>
+          <a className="btn btn-ghost" href="/resume.pdf" download="Tanner_Nguyenvu_Resume.pdf">
+            resume ↓
           </a>
         </div>
       </section>

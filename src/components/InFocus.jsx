@@ -321,7 +321,7 @@ const InFocus = () => {
               className="bball-word"
               data-cursor="ring"
               onClick={() => { if (!shooting) setShooting(true); }}
-            >basketball</span><span className="dot"></span>thelensguy
+            >basketball</span><span className="dot"></span><span className="thelens-handle" data-tooltip="Tanner Nguyenvu">thelensguy</span>
           </div>
           <div ref={skillsRef} className={`reveal ${skillsIn ? 'in' : ''}`} style={{ marginTop: 20 }}>
             <span className="label">stack</span>
