@@ -316,7 +316,7 @@ const InFocus = () => {
           </p>
           <div className="focus-divider" />
           <div className="strip">
-            making coffee i'm proud of<span className="dot"></span><span
+            making lattes i'm proud of<span className="dot"></span><span
               ref={wordRef}
               className="bball-word"
               data-cursor="ring"
