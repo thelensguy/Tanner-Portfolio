@@ -13,7 +13,7 @@ function aperture(ctx, cx, cy, r, t) {
   const hole = Math.max(1.5, r * (0.08 + t * 0.64));
   const outer = r * 0.9;
   const hw = (Math.PI / n) * 0.92;
-  ctx.strokeStyle = '#e8c46a';
+  ctx.strokeStyle = '#c49820';
   ctx.lineWidth = 0.85;
   for (let i = 0; i < n; i++) {
     const a = (i / n) * 2 * Math.PI + rot;
@@ -71,7 +71,7 @@ function camera(ctx, aT) {
   // Index mark dot on lens
   ctx.beginPath();
   ctx.arc(LX + 54, LY, 2.5, 0, Math.PI * 2);
-  ctx.fillStyle = '#e8c46a';
+  ctx.fillStyle = '#c49820';
   ctx.fill();
 
   // Top plate
@@ -118,9 +118,9 @@ function camera(ctx, aT) {
   ctx.roundRect(202, 74, 70, 44, 2);
   ctx.stroke();
   // Inner rangefinder frame (amber)
-  ctx.strokeStyle = '#e8c46a';
+  ctx.strokeStyle = '#c49820';
   ctx.lineWidth = 0.7;
-  ctx.strokeStyle = 'rgba(232,196,106,0.55)';
+  ctx.strokeStyle = 'rgba(196,152,32,0.55)';
   ctx.beginPath();
   ctx.strokeRect(212, 82, 50, 28);
   ctx.stroke();
@@ -154,41 +154,32 @@ function camera(ctx, aT) {
     ctx.fill();
   });
 
-  // Bottom panel line
+  // Bottom panel line — drawn in two segments to skip the lens area
+  // Lens at cx=112, cy=133, r=54 intersects y=178 at x≈82 and x≈142
   ctx.strokeStyle = dim;
   ctx.lineWidth = 0.6;
   ctx.beginPath();
   ctx.moveTo(38, 178);
+  ctx.lineTo(78, 178);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(146, 178);
   ctx.lineTo(290, 178);
   ctx.stroke();
 
-  // Serial / label area (amber text)
-  ctx.fillStyle = 'rgba(232,196,106,0.85)';
-  ctx.font = "600 7px 'JetBrains Mono', monospace";
-  ctx.letterSpacing = '2px';
+  // Serial / label area — centered in right portion of lower panel (x=146–290)
+  const labelX = (146 + 290) / 2; // 218
   ctx.textAlign = 'center';
-  ctx.fillText('TANNER', LX, 200);
+  ctx.fillStyle = '#c49820';
+  ctx.font = "600 8px 'JetBrains Mono', monospace";
+  ctx.letterSpacing = '2.5px';
+  ctx.fillText('TANNER', labelX, 188);
 
+  ctx.letterSpacing = '1px';
   ctx.font = "400 6.5px 'JetBrains Mono', monospace";
-  ctx.fillStyle = 'rgba(232,196,106,0.55)';
-  ctx.fillText('50mm  f/1.8', LX, 212);
-
-  // Dashed leader line from lens label to lens ring
-  ctx.strokeStyle = 'rgba(232,196,106,0.30)';
-  ctx.lineWidth = 0.6;
-  ctx.setLineDash([2, 3]);
-  ctx.beginPath();
-  ctx.moveTo(LX + 20, 207);
-  ctx.lineTo(LX + 40, 193);
-  ctx.lineTo(LX + 54, 175);
-  ctx.stroke();
-  ctx.setLineDash([]);
-
-  // f/1.8 annotation with leader
-  ctx.fillStyle = 'rgba(232,196,106,0.70)';
-  ctx.font = "400 6px 'JetBrains Mono', monospace";
-  ctx.textAlign = 'left';
-  ctx.fillText('f/1.8', LX + 57, 172);
+  ctx.fillStyle = 'rgba(196,152,32,0.70)';
+  ctx.fillText('50mm  f/1.8', labelX, 197);
+  ctx.letterSpacing = '0px';
 }
 
 const Camera = () => {

@@ -12,7 +12,7 @@ function drawDial(ctx, angle, values, activeIndex) {
   const ink    = dark ? 'rgba(245,240,232,0.85)' : 'rgba(28,24,20,0.85)';
   const faint  = dark ? 'rgba(245,240,232,0.20)' : 'rgba(28,24,20,0.20)';
   const inkMid = dark ? 'rgba(245,240,232,0.50)' : 'rgba(28,24,20,0.50)';
-  const amber  = '#e8c46a';
+  const amber  = '#c49820';
 
   // --- Rotating dial body ---
   ctx.save();
@@ -57,7 +57,7 @@ function drawDial(ctx, angle, values, activeIndex) {
   // Inner accent ring at r=20 (faint amber)
   ctx.beginPath();
   ctx.arc(CX, CY, 20, 0, Math.PI * 2);
-  ctx.strokeStyle = 'rgba(232,196,106,0.35)';
+  ctx.strokeStyle = 'rgba(196,152,32,0.35)';
   ctx.lineWidth = 0.9;
   ctx.stroke();
 
@@ -154,7 +154,7 @@ const HoopSVG = ({ jiggle }) => (
   <svg width="54" height="58" viewBox="0 0 54 58">
     {/* Backboard */}
     <rect x="43" y="0" width="11" height="38" rx="1" fill="rgba(245,240,232,0.95)" stroke="rgba(15,14,12,0.85)" strokeWidth="1.2"/>
-    <rect x="45" y="8" width="7" height="10" rx="0.5" fill="none" stroke="#e8c46a" strokeWidth="1"/>
+    <rect x="45" y="8" width="7" height="10" rx="0.5" fill="none" stroke="#c49820" strokeWidth="1"/>
     {/* Bracket arm */}
     <line x1="43" y1="24" x2="36" y2="24" stroke="rgba(15,14,12,0.85)" strokeWidth="1.5"/>
     {/* Rim */}
@@ -301,6 +301,7 @@ const InFocus = () => {
           <img
             src={headshot}
             alt="Tanner"
+            loading="lazy"
             style={{
               position: 'absolute', inset: 0,
               width: '100%', height: '100%',

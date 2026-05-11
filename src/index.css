@@ -3,7 +3,7 @@
   --ink: #0f0e0c;
   --amber: #e8c46a;
   --amber-deep: #d4a847;
-  --warm-gray: #8a8070;
+  --warm-gray: #6b6055;
   --cream-deep: #ebe3d4;
   --espresso: #1a1410;
   --espresso-2: #241c16;
@@ -25,6 +25,7 @@ html, body {
 body.dark {
   background: var(--espresso);
   color: var(--cream);
+  --warm-gray: #9a9080;
 }
 
 /* hide native cursor on desktop, custom amber cursor lives via JS */

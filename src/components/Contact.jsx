@@ -24,7 +24,7 @@ const LattePour = ({ x, y, onRemove }) => {
         <path
           className="lp-stream"
           d="M 26 4 Q 29 18 26 33"
-          fill="none" stroke="#e8c46a" strokeWidth="1.5" strokeLinecap="round"
+          fill="none" stroke="#c49820" strokeWidth="1.5" strokeLinecap="round"
         />
 
         {/* Cup body */}
@@ -45,13 +45,13 @@ const LattePour = ({ x, y, onRemove }) => {
 
         {/* Coffee surface */}
         <ellipse cx="26" cy="35" rx="12" ry="3.5"
-          fill="rgba(232,196,106,0.13)" stroke="rgba(232,196,106,0.45)" strokeWidth="0.9" />
+          fill="rgba(196,152,32,0.13)" stroke="rgba(196,152,32,0.45)" strokeWidth="0.9" />
 
         {/* Latte art heart — drawn via stroke-dashoffset */}
         <path
           className="lp-art"
           d="M 26 38 C 21 35,17 32,18 29 C 19 26,23 26,26 30 C 29 26,33 26,34 29 C 35 32,31 35,26 38"
-          fill="none" stroke="rgba(232,196,106,0.88)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"
+          fill="none" stroke="rgba(196,152,32,0.88)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"
         />
       </svg>
     </div>
@@ -94,19 +94,19 @@ const Contact = () => {
         </div>
 
         <div ref={btnsRef} className={`contact-buttons reveal ${btnsIn ? 'in' : ''}`}>
-          <a className="btn btn-ghost" href="https://github.com/thelensguy" target="_blank" rel="noreferrer" onClick={spark}>
+          <a className="btn btn-ghost" href="https://github.com/thelensguy" target="_blank" rel="noreferrer" onClick={spark} aria-label="View GitHub profile">
             github.com/<span className="thelens-handle" data-tooltip="Tanner Nguyenvu">thelensguy</span>
-            <svg className="arrow" viewBox="0 0 12 12" fill="none">
+            <svg className="arrow" viewBox="0 0 12 12" fill="none" aria-hidden="true">
               <path d="M3 9L9 3M9 3H4M9 3v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </a>
-          <a className="btn btn-ghost" href="https://www.linkedin.com/in/thelensguy" target="_blank" rel="noreferrer" onClick={spark}>
+          <a className="btn btn-ghost" href="https://www.linkedin.com/in/thelensguy" target="_blank" rel="noreferrer" onClick={spark} aria-label="View LinkedIn profile">
             linkedin.com/in/<span className="thelens-handle" data-tooltip="Tanner Nguyenvu">thelensguy</span>
-            <svg className="arrow" viewBox="0 0 12 12" fill="none">
+            <svg className="arrow" viewBox="0 0 12 12" fill="none" aria-hidden="true">
               <path d="M3 9L9 3M9 3H4M9 3v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </a>
-          <a className="btn btn-ghost" href="/resume.pdf" download="Tanner_Nguyenvu_Resume.pdf">
+          <a className="btn btn-ghost" href="/resume.pdf" download="Tanner_Nguyenvu_Resume.pdf" aria-label="Download resume PDF">
             resume ↓
           </a>
         </div>

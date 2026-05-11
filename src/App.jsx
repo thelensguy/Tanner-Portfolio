@@ -53,10 +53,12 @@ const App = () => {
       }} />
       <Cursor />
       <Nav active={active} darkMode={darkMode} onToggleDark={toggleDark} />
-      <Hero />
-      <Work />
-      <InFocus />
-      <Contact />
+      <main>
+        <Hero />
+        <Work />
+        <InFocus />
+        <Contact />
+      </main>
     </>
   );
 };
