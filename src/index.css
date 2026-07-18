@@ -391,7 +391,7 @@ section {
 /* work cards */
 .work-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
   gap: 48px;
 }
 .card {
@@ -484,35 +484,6 @@ body.dark .card-link { color: var(--amber); }
   padding: 5px 12px;
   border-radius: 999px;
   border: 1px solid color-mix(in oklab, var(--warm-gray) 28%, transparent);
-}
-
-/* brewing card */
-.card-brewing {
-  border: 1.5px dashed color-mix(in oklab, var(--amber) 48%, transparent);
-  border-radius: 4px;
-}
-.card-brewing-sub {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 13px;
-  letter-spacing: 0.06em;
-  color: var(--warm-gray);
-  opacity: 0.65;
-}
-
-/* steam animation */
-.steam-line {
-  opacity: 0;
-  transform-box: fill-box;
-  transform-origin: bottom center;
-}
-.card-brewing:hover .steam-line {
-  animation: steam-rise 2.4s ease-in-out infinite;
-}
-@keyframes steam-rise {
-  0%   { opacity: 0;    transform: translateY(0); }
-  20%  { opacity: 0.85; }
-  80%  { opacity: 0.50; }
-  100% { opacity: 0;    transform: translateY(-28px); }
 }
 
 /* blur-to-sharp reveal */

@@ -132,45 +132,58 @@ const FolioShot = () => (
   </div>
 );
 
-const BrewingShot = () => (
-  <div className="shot" style={{ background: 'linear-gradient(160deg, #13110e 0%, #1c1510 100%)', overflow: 'hidden' }}>
+const SideQuestShot = () => (
+  <div className="shot" style={{
+    background: 'linear-gradient(160deg, #13110e 0%, #1c1510 100%)',
+    overflow: 'hidden',
+  }}>
     <svg viewBox="0 0 800 500" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
       <defs>
-        <pattern id="grid-brew" width="50" height="50" patternUnits="userSpaceOnUse">
-          <path d="M50 0H0V50" fill="none" stroke="rgba(245,240,232,0.03)" strokeWidth="1" />
+        <pattern id="grid-sq" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M40 0H0V40" fill="none" stroke="rgba(245,240,232,0.04)" strokeWidth="1" />
         </pattern>
       </defs>
-      <rect width="800" height="500" fill="url(#grid-brew)" />
+      <rect width="800" height="500" fill="url(#grid-sq)" />
 
-      {/* Saucer */}
-      <ellipse cx="400" cy="368" rx="122" ry="18" fill="none" stroke="rgba(245,240,232,0.50)" strokeWidth="1.5" />
-      <ellipse cx="400" cy="368" rx="96" ry="12" fill="none" stroke="rgba(245,240,232,0.18)" strokeWidth="1" />
+      <rect x="40" y="40" width="720" height="420" rx="10" fill="#201811" stroke="rgba(232,196,106,0.14)" />
+      <circle cx="62" cy="62" r="5" fill="#3a2e22" />
+      <circle cx="78" cy="62" r="5" fill="#3a2e22" />
+      <circle cx="94" cy="62" r="5" fill="#3a2e22" />
+      <text x="400" y="66" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="rgba(245,240,232,0.4)" letterSpacing="2">sidequest · dashboard</text>
 
-      {/* Cup body */}
-      <path d="M 308 202 L 492 202 L 468 355 L 332 355 Z" fill="none" stroke="rgba(245,240,232,0.60)" strokeWidth="1.8" strokeLinejoin="round" />
+      {/* HUD strip */}
+      <rect x="80" y="96" width="112" height="34" rx="17" fill="rgba(232,196,106,0.14)" stroke="rgba(232,196,106,0.5)" />
+      <text x="136" y="118" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="12" fill="#e8c46a" letterSpacing="1">LVL 06</text>
+      {[
+        { x: 212, label: '17 XP' },
+        { x: 296, label: '4 SCOUTED' },
+        { x: 412, label: '6 APPLIED' },
+        { x: 524, label: '3 REWARDS' },
+      ].map((s, i) => (
+        <text key={i} x={s.x} y="118" fontFamily="JetBrains Mono, monospace" fontSize="11" fill="rgba(245,240,232,0.55)" letterSpacing="0.5">{s.label}</text>
+      ))}
 
-      {/* Cup rim */}
-      <ellipse cx="400" cy="202" rx="92" ry="14" fill="none" stroke="rgba(245,240,232,0.55)" strokeWidth="1.5" />
+      {/* quest rows */}
+      {[
+        { y: 168, w: 0.62 },
+        { y: 214, w: 0.48 },
+        { y: 260, w: 0.7 },
+        { y: 306, w: 0.4 },
+      ].map((r, i) => (
+        <g key={i}>
+          <rect x="80" y={r.y} width="460" height="34" rx="6" fill="rgba(245,240,232,0.03)" stroke="rgba(245,240,232,0.08)" />
+          <rect x="94" y={r.y + 12} width={r.w * 460 - 28} height="10" rx="3" fill="rgba(245,240,232,0.18)" />
+          <rect x="500" y={r.y + 9} width="30" height="16" rx="8" fill="rgba(232,196,106,0.16)" stroke="rgba(232,196,106,0.4)" />
+        </g>
+      ))}
 
-      {/* Coffee surface */}
-      <ellipse cx="400" cy="202" rx="84" ry="10" fill="rgba(232,196,106,0.10)" stroke="rgba(232,196,106,0.38)" strokeWidth="1" />
-
-      {/* Handle */}
-      <path d="M 467 242 C 538 242 538 318 467 338" fill="none" stroke="rgba(245,240,232,0.55)" strokeWidth="1.8" strokeLinecap="round" />
-
-      {/* Latte art (subtle) */}
-      <ellipse cx="400" cy="202" rx="46" ry="6" fill="none" stroke="rgba(232,196,106,0.22)" strokeWidth="1" transform="rotate(-12, 400, 202)" />
-
-      {/* Steam lines */}
-      <path className="steam-line" style={{ animationDelay: '0s' }}
-        d="M 362 190 Q 347 165 364 142 Q 381 119 364 94"
-        fill="none" stroke="#e8c46a" strokeWidth="1.8" strokeLinecap="round" />
-      <path className="steam-line" style={{ animationDelay: '0.9s' }}
-        d="M 400 188 Q 385 158 402 128 Q 419 98 402 68"
-        fill="none" stroke="#e8c46a" strokeWidth="1.8" strokeLinecap="round" />
-      <path className="steam-line" style={{ animationDelay: '1.8s' }}
-        d="M 438 190 Q 453 165 436 142 Q 419 119 436 94"
-        fill="none" stroke="#e8c46a" strokeWidth="1.8" strokeLinecap="round" />
+      {/* reward dial */}
+      <g transform="translate(660 250)">
+        <circle r="58" fill="none" stroke="rgba(232,196,106,0.25)" strokeWidth="1.5" />
+        <circle r="58" fill="none" stroke="#e8c46a" strokeWidth="2" strokeDasharray="26 300" strokeLinecap="round" transform="rotate(-90)" />
+        <circle r="40" fill="none" stroke="rgba(245,240,232,0.15)" strokeWidth="1" />
+        <text y="5" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="#e8c46a" letterSpacing="1">SPIN</text>
+      </g>
     </svg>
   </div>
 );
@@ -195,7 +208,7 @@ const Work = () => {
             <div className="card-meta">
               <div className="card-row">
                 <h3>Trava</h3>
-                <span className="card-num">01 / 02</span>
+                <span className="card-num">01 / 03</span>
               </div>
               <div className="stack">
                 <span>Swift</span><span>SwiftUI</span><span>MapKit</span><span>CoreLocation</span><span>SwiftData</span>
@@ -219,7 +232,7 @@ const Work = () => {
             <div className="card-meta">
               <div className="card-row">
                 <h3>Folio</h3>
-                <span className="card-num">02 / 02</span>
+                <span className="card-num">02 / 03</span>
               </div>
               <div className="stack">
                 <span>Next.js 14</span><span>SQLite</span><span>Drizzle</span><span>Recharts</span><span>Zustand</span><span>shadcn/ui</span>
@@ -237,18 +250,29 @@ const Work = () => {
           </TiltCard>
         </div>
 
-        {/* <div ref={c3Ref} className={`reveal ${c3In ? 'in' : ''}`}>
-          <TiltCard accent={false} className="card-brewing">
-            <BrewingShot />
+        <div ref={c3Ref} className={`reveal ${c3In ? 'in' : ''}`}>
+          <TiltCard>
+            <SideQuestShot />
             <div className="card-meta">
               <div className="card-row">
-                <h3>brewing something new</h3>
+                <h3>SideQuest</h3>
                 <span className="card-num">03 / 03</span>
               </div>
-              <p className="card-brewing-sub">next project · coming soon</p>
+              <div className="stack">
+                <span>React</span><span>TypeScript</span><span>Vite</span><span>CRXJS</span><span>Chrome Extension</span>
+              </div>
+              <p className="card-desc">
+                A Chrome extension that turns job-search tracking into a game. Capture applications from LinkedIn, Indeed, or ZipRecruiter with one click, then level up as you apply — XP, badges, and a spin-the-wheel reward system, all stored locally, no backend.
+              </p>
+              <a href="https://github.com/thelensguy/sidequest" className="card-link">
+                view project
+                <svg viewBox="0 0 12 12" fill="none" width="11" height="11">
+                  <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
             </div>
           </TiltCard>
-        </div> */}
+        </div>
       </div>
     </section>
   );

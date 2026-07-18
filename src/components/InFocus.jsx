@@ -253,15 +253,6 @@ const BballShot = ({ wordRef, onDone }) => {
 
 const ROLES = [
   {
-    co: 'Level Up', role: 'Technical Program Manager', date: 'May 2025 — Present',
-    values: ['-2', '-1', '0', '+1', '+2'], activeIndex: 2,
-    dialValue: 'ISO 100', dialDesc: 'clear · human',
-    bullets: [
-      'Lead career development workshops and mentorship programs for 100+ university students across technology and professional skills',
-      'Design and deliver training curricula focused on global workplace readiness, English communication, and software fundamentals',
-    ],
-  },
-  {
     co: 'WebConnex', role: 'Software Engineer', date: 'Sep 2021 — May 2025',
     values: ['A', '1.4', '1.8', '2.8', '4'], activeIndex: 2,
     dialValue: 'f / 1.8', dialDesc: 'deep focus',
