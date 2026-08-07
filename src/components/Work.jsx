@@ -25,6 +25,7 @@ export const useReveal = (opts = {}) => {
 export const TiltCard = ({ children, accent = true, className = '' }) => {
   const ref = useRef(null);
   const onMove = (e) => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const el = ref.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
@@ -188,11 +189,65 @@ const SideQuestShot = () => (
   </div>
 );
 
+const QuickbarShot = () => (
+  <div className="shot" style={{
+    background: 'linear-gradient(160deg, #13110e 0%, #1c1510 100%)',
+    overflow: 'hidden',
+  }}>
+    <svg viewBox="0 0 800 500" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+      <defs>
+        <pattern id="grid-qb" width="40" height="40" patternUnits="userSpaceOnUse">
+          <path d="M40 0H0V40" fill="none" stroke="rgba(245,240,232,0.04)" strokeWidth="1" />
+        </pattern>
+      </defs>
+      <rect width="800" height="500" fill="url(#grid-qb)" />
+
+      {/* menu bar */}
+      <rect x="0" y="0" width="800" height="30" fill="rgba(0,0,0,0.35)" />
+      <circle cx="742" cy="15" r="6" fill="#e8c46a" stroke="rgba(232,196,106,0.5)" strokeWidth="1.5" />
+
+      {/* panel */}
+      <rect x="480" y="46" width="280" height="380" rx="14" fill="#201811" stroke="rgba(232,196,106,0.16)" />
+
+      {/* capture field */}
+      <rect x="500" y="66" width="240" height="38" rx="9" fill="rgba(245,240,232,0.05)" stroke="rgba(232,196,106,0.3)" />
+      <text x="514" y="90" fontFamily="JetBrains Mono, monospace" fontSize="10" fill="rgba(245,240,232,0.55)">buy milk tomorrow</text>
+
+      {/* parsed chips */}
+      <rect x="500" y="112" width="70" height="20" rx="10" fill="rgba(232,196,106,0.14)" stroke="rgba(232,196,106,0.4)" />
+      <text x="535" y="126" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="8" fill="#e8c46a" letterSpacing="0.5">TOMORROW</text>
+      <rect x="576" y="112" width="76" height="20" rx="10" fill="rgba(245,240,232,0.06)" stroke="rgba(245,240,232,0.18)" />
+      <text x="614" y="126" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="8" fill="rgba(245,240,232,0.6)" letterSpacing="0.5">#ERRANDS</text>
+      <rect x="658" y="112" width="30" height="20" rx="10" fill="rgba(245,240,232,0.06)" stroke="rgba(245,240,232,0.18)" />
+      <text x="673" y="126" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="8" fill="rgba(245,240,232,0.6)">P1</text>
+
+      {/* task rows */}
+      {[
+        { y: 156, w: 0.7, done: false },
+        { y: 200, w: 0.55, done: true },
+        { y: 244, w: 0.62, done: false },
+        { y: 288, w: 0.4, done: false },
+      ].map((r, i) => (
+        <g key={i}>
+          <circle cx="514" cy={r.y + 10} r="7" fill="none" stroke={r.done ? '#e8c46a' : 'rgba(245,240,232,0.3)'} strokeWidth="1.5" />
+          {r.done && <path d={`M510 ${r.y+10} l3 3 l6 -6`} fill="none" stroke="#e8c46a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />}
+          <rect x="530" y={r.y + 4} width={r.w * 200} height="12" rx="3" fill="rgba(245,240,232,0.16)" opacity={r.done ? 0.4 : 1} />
+        </g>
+      ))}
+
+      {/* footer sync status */}
+      <rect x="500" y="392" width="240" height="18" rx="4" fill="rgba(245,240,232,0.03)" />
+      <text x="514" y="405" fontFamily="JetBrains Mono, monospace" fontSize="8" fill="rgba(245,240,232,0.4)" letterSpacing="1">SYNCED · TODAY · 4 TASKS</text>
+    </svg>
+  </div>
+);
+
 const Work = () => {
   const [headRef, headIn] = useReveal();
   const [c1Ref, c1In] = useReveal();
   const [c2Ref, c2In] = useReveal({ rootMargin: '0px 0px -5% 0px' });
   const [c3Ref, c3In] = useReveal({ rootMargin: '0px 0px -5% 0px' });
+  const [c4Ref, c4In] = useReveal({ rootMargin: '0px 0px -5% 0px' });
 
   return (
     <section id="work" data-screen-label="02 Work">
@@ -208,7 +263,7 @@ const Work = () => {
             <div className="card-meta">
               <div className="card-row">
                 <h3>Trava</h3>
-                <span className="card-num">01 / 03</span>
+                <span className="card-num">01 / 04</span>
               </div>
               <div className="stack">
                 <span>Swift</span><span>SwiftUI</span><span>MapKit</span><span>CoreLocation</span><span>SwiftData</span>
@@ -232,7 +287,7 @@ const Work = () => {
             <div className="card-meta">
               <div className="card-row">
                 <h3>Folio</h3>
-                <span className="card-num">02 / 03</span>
+                <span className="card-num">02 / 04</span>
               </div>
               <div className="stack">
                 <span>Next.js 14</span><span>SQLite</span><span>Drizzle</span><span>Recharts</span><span>Zustand</span><span>shadcn/ui</span>
@@ -256,7 +311,7 @@ const Work = () => {
             <div className="card-meta">
               <div className="card-row">
                 <h3>SideQuest</h3>
-                <span className="card-num">03 / 03</span>
+                <span className="card-num">03 / 04</span>
               </div>
               <div className="stack">
                 <span>React</span><span>TypeScript</span><span>Vite</span><span>CRXJS</span><span>Chrome Extension</span>
@@ -265,6 +320,30 @@ const Work = () => {
                 A Chrome extension that turns job-search tracking into a game. Capture applications from LinkedIn, Indeed, or ZipRecruiter with one click, then level up as you apply — XP, badges, and a spin-the-wheel reward system, all stored locally, no backend.
               </p>
               <a href="https://github.com/thelensguy/sidequest" className="card-link">
+                view project
+                <svg viewBox="0 0 12 12" fill="none" width="11" height="11">
+                  <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+            </div>
+          </TiltCard>
+        </div>
+
+        <div ref={c4Ref} className={`reveal ${c4In ? 'in' : ''}`}>
+          <TiltCard>
+            <QuickbarShot />
+            <div className="card-meta">
+              <div className="card-row">
+                <h3>Quickbar</h3>
+                <span className="card-num">04 / 04</span>
+              </div>
+              <div className="stack">
+                <span>Swift</span><span>SwiftUI</span><span>Todoist API</span><span>OAuth</span><span>macOS</span>
+              </div>
+              <p className="card-desc">
+                A macOS menu bar client for Todoist. Type a task, hit Return — quick add parses dates, projects, labels, and priority as you type, with offline-first sync and full keyboard control.
+              </p>
+              <a href="https://github.com/thelensguy/quick-bar" className="card-link">
                 view project
                 <svg viewBox="0 0 12 12" fill="none" width="11" height="11">
                   <path d="M2 6h8M7 3l3 3-3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
